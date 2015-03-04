@@ -1,7 +1,7 @@
 <div class="profile">
   <%= image_tag @profile.avatar_url %>
   <h2>
-    <%= @profile.username %>
+    <%= @profile.name %>
   </h2>
   <p>
     <%= @profile.location %>
@@ -10,10 +10,10 @@
     <%= @profile.company_name %>
   </p>
   <p>
-    Followers: <%= @profile.number_of_followers %>
+    Followers: <%= @profile.followers %>
   </p>
   <p>
-    Following: <%= @profile.number_following %>
+    Following: <%= @profile.following %>
   </p>
 </div>
 
