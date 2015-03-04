@@ -25,4 +25,7 @@ class Repository < ActiveRecord::Base
     Repository.all
   end
 
+  def self.update_from_username(username)
+  end
+
 end

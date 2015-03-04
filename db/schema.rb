@@ -11,16 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304210852) do
+ActiveRecord::Schema.define(version: 20150304215643) do
 
   create_table "profiles", force: :cascade do |t|
-    t.string  "name"
-    t.string  "avatar_url"
-    t.string  "location"
-    t.string  "company_name"
-    t.integer "followers"
-    t.integer "following"
-    t.text    "body"
+    t.string   "name"
+    t.string   "avatar_url"
+    t.string   "location"
+    t.string   "company_name"
+    t.integer  "followers"
+    t.integer  "following"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "repositories", force: :cascade do |t|
@@ -33,6 +35,8 @@ ActiveRecord::Schema.define(version: 20150304210852) do
     t.integer  "repository_list_id"
     t.text     "body"
     t.integer  "profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

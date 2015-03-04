@@ -23,6 +23,9 @@ class Profile < ActiveRecord::Base
     end
   end
 
+  def self.update_from_username(username)
+  end
+
 
 
 end
