@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304190858) do
+ActiveRecord::Schema.define(version: 20150304210852) do
 
   create_table "profiles", force: :cascade do |t|
     t.string  "name"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150304190858) do
     t.string   "language"
     t.integer  "repository_list_id"
     t.text     "body"
+    t.integer  "profile_id"
   end
 
 end

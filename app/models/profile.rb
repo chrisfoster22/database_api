@@ -1,5 +1,6 @@
 class Profile < ActiveRecord::Base
-
+  has_many :repositories
+  validates :name, uniqueness: true
 
   def self.create_from_username(username)
     content = HTTParty.get(
@@ -10,7 +11,7 @@ class Profile < ActiveRecord::Base
     )
     username = content["login"]
     avatar_url = content["avatar_url"]
-    location = content["avatar_url"]
+    location = content["location"]
     company_name = content["company"]
     followers = content["followers"]
     following = content["following"]

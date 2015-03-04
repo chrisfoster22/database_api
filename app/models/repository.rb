@@ -1,48 +1,28 @@
 class Repository < ActiveRecord::Base
-    def self.create_from_username(username)
-      content = HTTParty.get(
-          "https://api.github.com/users/#{username}/repositories",
-          :headers => {"Authorization" => "token #{ENV['GITHUB_TOKEN']}",
-                       "User-Agent" => "anyone"
-                      }
-      )
-      name = content["name"]
-      url = content["url"]
-      forks = content["forks_count"]
-      stars = content["stargazers_count"]
-      git_updated = content["updated_at"]
-      language = content["language"]
-
-      if content["name"]
-        Profile.create(body: content, name: username, avatar_url: avatar_url, location: location, company_name: company_name, followers: followers, following: following)
+  belongs_to :profile
+  validates :name, uniqueness: true
+  def self.create_from_username(username)
+    content = HTTParty.get(
+        "https://api.github.com/users/#{username}/repos",
+        :headers => {"Authorization" => "token #{ENV['GITHUB_TOKEN']}",
+                     "User-Agent" => "anyone"
+                    }
+    )
+    content.each do |c|
+      name = c["name"]
+      url = c["url"]
+      forks = c["forks_count"]
+      stars = c["stargazers_count"]
+      git_updated = c["updated_at"]
+      language = c["language"]
+      profile_id = Profile.find_by(name: "#{username}").id
+      if c["name"]
+        Repository.create(name: name, url: url, forks: forks, stars: stars, git_updated: git_updated, language: language, profile_id: profile_id)
       else
         return nil
       end
     end
-
-
-
-  def name
-    @content["name"]
+    Repository.all
   end
 
-  def url
-    @content["url"]
-  end
-
-  def number_of_forks
-    @content["forks_count"].to_i
-  end
-
-  def number_of_stars
-    @content["stargazers_count"].to_i
-  end
-
-  def updated_at
-    @content["updated_at"].to_datetime
-  end
-
-  def language
-    @content["language"]
-  end
 end
